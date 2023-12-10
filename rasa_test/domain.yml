@@ -1,0 +1,81 @@
+version: '3.1'
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - lane_preference
+  - role_preference
+
+entities:
+  - lane
+  - role
+
+slots:
+  lane:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: lane
+  role:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: role
+  lane_acknowledged:
+    type: bool
+    mappings:
+      - type : from_entity
+      initial_value: false;      
+      mappings:
+      - type: custom
+        action: action_acknowledge_lane_preference
+  role_acknowledged:
+    type: bool
+    mappings:
+      - type : from_entity
+      initial_value: false;      
+      mappings:
+      - type: custom
+        action: action_acknowledge_role_preference
+
+responses:
+  utter_greet:
+    - text: "Hello! Welcome to the League of Legends beginner's guide chatbot."
+
+  utter_introduce:
+    - text: "I'm here to help you get started with League of Legends. Whether you're new to the game or looking for some tips, feel free to ask!"
+
+  utter_ask_lane_preference:
+    - text: 'Great! Before we dive in, which lane are you interested in playing? (top, jungle, mid, bot, support)'
+
+  utter_acknowledge_role_preference:
+    - text: "Got it! Playing as a {role} in the {lane} lane sounds like a good choice. Let's get started!"
+
+  utter_cheer_up:
+    - text: 'Here is something to cheer you up:'
+      image: 'https://i.imgur.com/nGF1K8f.jpg'
+
+  utter_did_that_help:
+    - text: 'Did that help you?'
+
+  utter_happy:
+    - text: 'Great, carry on!'
+
+  utter_goodbye:
+    - text: 'Bye'
+
+  utter_iamabot:
+    - text: 'I am a bot, powered by Rasa.'
+
+actions:
+  - action_acknowledge_lane_preference
+  - action_acknowledge_role_preference
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

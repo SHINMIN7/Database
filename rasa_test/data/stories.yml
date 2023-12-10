@@ -1,0 +1,43 @@
+version: '3.1'
+
+stories:
+  - story: greet and introduce path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_introduce
+      - intent: lane_preference
+        entities:
+          - lane # Assuming 'top' is one of the lanes
+      - action: utter_ask_lane_preference
+      - intent: role_preference
+        entities:
+          - role # Assuming 'tank' is one of the roles
+      - action: utter_acknowledge_role_preference
+
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
